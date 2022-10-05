@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require(`mongoose`);
 
 //importroutes
+const tarifsRoutes = require(`./routes/tarif`);
 /*const authRoutes = require(`./routes/authentification`);
 const articleRoutes = require(`./routes/article`);
 const commentRoutes = require(`./routes/comment`);
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
   });
 
 //routes
+app.use('/api/tarifs', tarifsRoutes)
 /*app.use(`/api/auth`, authRoutes);
 app.use('/api/users', userRoutes);
 app.use(`/api/articles`, articleRoutes);

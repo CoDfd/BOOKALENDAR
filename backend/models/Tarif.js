@@ -2,18 +2,12 @@ const mongoose = require(`mongoose`);
 
 const tarifSchema = mongoose.Schema({
     // _id sera généré automatiquement par mongoDB
-    year: { type: Number, required: true },
+    year: { type: Number, required: true }, // i'dlike it unique
     month: { type: Number, required: true },
+    dayindex: { type: Number, required: true},
+    price: { type: Number, required: true, default: 0 }, //set to 0 if not
+    selected: { type: Boolean, required: true, default: false}
 
-
-    userId: { type: String, required: true },
-    name: { type: String, required: true },
-    manufacturer: { type: String, required: true },
-    description: { type: String, required: true },
-    mainPepper: { type: String, required: true },
-    imageUrl: { type: String, required: true },
-    usersLiked: [ "String <userId>" ],
-    usersDisliked: [ "String <userId>" ]
 });
 
 module.exports = mongoose.model(`Tarif`, tarifSchema); 
