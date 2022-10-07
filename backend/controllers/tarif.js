@@ -4,25 +4,34 @@ const Tarif = require(`../models/Tarif`);
 //controller get one
 
 //controller get all of a month
+exports.getMonthTarifs = (req, res, next) => {
+    console.log(req.params);
+    const date = req.params.YYYY_MM.split('-');
+    const month = date[1];
+    const year = date[0];
+    Tarif.find({year: year, month: month}).sort({ dayindex: 1 })
+        .then(tarifs => res.status(200).json(tarifs))
+        .catch(error => res.status(404).json({ error }));
+}
 
 //controller post
 exports.createTarifs = (req, res, next) => {
-    console.log("0");
-    const date = req.params.YYYYMM.split('-');
+    console.log(req.params);
+    const date = req.params.YYYY_MM.split('-');
     const month = date[1];
     const year = date[0];
-    const tarifsMonth = JSON.parse(req.body);
+    /*const getfrompost = JSON.parse(req.body);
+    const tarifsMonth = getfrompost.month*/
+    const tarifsMonth = req.body;
     const tarifsPost = [];
-    console.log("0.1");
 
     Tarif.deleteMany({year: year}, {month: month})
-        .then(() => {
-            res.status(200).json({ message: `Tarifs du mois ${month} ${year} supprimés !`});
+       /* .then(() => {
+            res.json({ check: `Tarifs du mois ${month} ${year} supprimés !`});
             console.log("1");
-        })
-
+        })*/ 
+ 
         .then(() => {
-            console.log("2");
             tarifsMonth.forEach(element => {
                 const eachDayDate = element.index +1 ;
                 const tarif = new Tarif({
@@ -37,11 +46,10 @@ exports.createTarifs = (req, res, next) => {
             Tarif.insertMany(tarifsPost)
                 .then(() => {
                     res.status(200).json({ message: `Tarifs du mois ${month} ${year} enregistrés !`});
-                    console.log("3");
                 })
                 .catch(error => {
                     res.status(400).json({ error });
-                    console.log("ERREUR 3");
+                    console.log("ERREUR ROUTE POST MONTH");
                 });
             
         })

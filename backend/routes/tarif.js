@@ -4,7 +4,10 @@ const router = express.Router();
 const tarifCtrl = require(`../controllers/tarif`);
 
 //route Post pour un mois entier
-router.post('/:YYYY-MM', tarifCtrl.createTarifs);
+router.post('/:YYYY_MM', tarifCtrl.createTarifs);
+
+//route get all pour un mois entier
+router.get('/:YYYY_MM', tarifCtrl.getMonthTarifs);
 
 /*//route Post
 router.post('/', auth, multer, sauceCtrl.createSauce);
