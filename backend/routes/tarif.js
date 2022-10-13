@@ -9,6 +9,9 @@ router.post('/:YYYY_MM', tarifCtrl.createTarifs);
 //route get all pour un mois entier
 router.get('/:YYYY_MM', tarifCtrl.getMonthTarifs);
 
+//route get several
+router.get('/', tarifCtrl.getTarifs);
+
 /*//route Post
 router.post('/', auth, multer, sauceCtrl.createSauce);
 //route PUT pour un modifier objet spécifique
